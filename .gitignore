@@ -1,0 +1,13 @@
+# Runtime output
+.clipboard-images/
+.clipboard-images-gui-test/
+dist/
+
+# Windows
+desktop.ini
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/
+*.swp

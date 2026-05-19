@@ -1,0 +1,20 @@
+{
+  "name": "clipboard-image-paste",
+  "interface": {
+    "displayName": "Clipboard Image Paste"
+  },
+  "plugins": [
+    {
+      "name": "clipboard-image-paste",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

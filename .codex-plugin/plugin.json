@@ -1,0 +1,42 @@
+{
+  "name": "clipboard-image-paste",
+  "version": "1.0.0",
+  "description": "Save a clipboard image as a local PNG and paste an @path reference into Codex or Claude Code CLI.",
+  "author": {
+    "name": "ImageIce",
+    "email": "268296916+ImageIce@users.noreply.github.com",
+    "url": "https://github.com/ImageIce"
+  },
+  "homepage": "https://github.com/ImageIce/clipboard-image-paste",
+  "repository": "https://github.com/ImageIce/clipboard-image-paste",
+  "license": "MIT",
+  "keywords": [
+    "clipboard",
+    "image",
+    "codex",
+    "claude-code",
+    "windows"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Clipboard Image Paste",
+    "shortDescription": "Paste clipboard images into CLI prompts as local image references.",
+    "longDescription": "Windows helper for Codex and Claude Code CLI sessions. It saves the current clipboard bitmap to a local PNG file, copies a prompt-safe image path, and can make Ctrl+V paste images quickly in terminal sessions.",
+    "developerName": "ImageIce",
+    "category": "Productivity",
+    "capabilities": [
+      "Clipboard",
+      "Image",
+      "CLI"
+    ],
+    "websiteURL": "https://github.com/ImageIce/clipboard-image-paste",
+    "privacyPolicyURL": "https://github.com/ImageIce/clipboard-image-paste/blob/main/README.md",
+    "termsOfServiceURL": "https://github.com/ImageIce/clipboard-image-paste/blob/main/LICENSE",
+    "defaultPrompt": [
+      "Paste the image currently on my clipboard.",
+      "Save my clipboard image and attach it here.",
+      "Use the current clipboard screenshot."
+    ],
+    "brandColor": "#2563EB"
+  }
+}

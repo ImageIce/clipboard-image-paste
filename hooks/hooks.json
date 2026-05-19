@@ -1,0 +1,18 @@
+{
+  "description": "Start the clipboard image paste terminal hotkey when Codex or Claude Code starts.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/scripts/start-hotkey.ps1\"",
+            "timeout": 10,
+            "statusMessage": "Starting clipboard image paste hotkey"
+          }
+        ]
+      }
+    ]
+  }
+}
