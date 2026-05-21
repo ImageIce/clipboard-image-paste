@@ -42,37 +42,6 @@ function Get-AutoHotkeyMajorVersion {
     return $null
 }
 
-function Get-HotkeyScriptPaths {
-    @(
-        "clipimg-hotkey.ahk",
-        "clipimg-hotkey-v2.ahk"
-    ) | ForEach-Object {
-        $path = Join-Path $PSScriptRoot $_
-        if (Test-Path -LiteralPath $path -PathType Leaf) {
-            (Resolve-Path -LiteralPath $path).ProviderPath
-        }
-    }
-}
-
-function Get-HotkeyProcesses {
-    param([string[]]$ScriptPaths)
-
-    Get-CimInstance Win32_Process |
-        Where-Object {
-            $isHotkeyProcess = $false
-            if ($_.Name -match "^AutoHotkey" -and $_.CommandLine) {
-                foreach ($scriptPath in $ScriptPaths) {
-                    if ($_.CommandLine.IndexOf($scriptPath, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) {
-                        $isHotkeyProcess = $true
-                        break
-                    }
-                }
-            }
-
-            $isHotkeyProcess
-        }
-}
-
 function Get-AutoHotkeyRuntime {
     $candidates = @(
         @{ Path = "C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe"; MajorVersion = 2 },
@@ -120,21 +89,17 @@ function Get-AutoHotkeyRuntime {
     throw "AutoHotkey v1.1 or v2 was not found. Install AutoHotkey, or update this script with the correct executable path."
 }
 
-$scriptPaths = @(Get-HotkeyScriptPaths)
-$existing = @(Get-HotkeyProcesses -ScriptPaths $scriptPaths) | Select-Object -First 1
-
-if ($existing) {
-    Write-Output "Clipboard image paste hotkey already running as PID $($existing.ProcessId)."
-    return
-}
-
 $runtime = Get-AutoHotkeyRuntime
 
 $process = Start-Process -FilePath $runtime.ExecutablePath -ArgumentList "`"$($runtime.ScriptPath)`"" -WindowStyle Hidden -PassThru
-Start-Sleep -Milliseconds 500
-$process.Refresh()
-if ($process.HasExited) {
-    throw "AutoHotkey exited immediately while loading $($runtime.ScriptPath). Run the script directly to inspect the AutoHotkey error."
+$exited = $process.WaitForExit(1000)
+if ($exited) {
+    if ($process.ExitCode -eq 0) {
+        Write-Output "Clipboard image paste hotkey already running."
+        return
+    }
+
+    throw "AutoHotkey exited immediately while loading $($runtime.ScriptPath) with exit code $($process.ExitCode). Run the script directly to inspect the AutoHotkey error."
 }
 
 Write-Output "Started clipboard image paste hotkey as PID $($process.Id) with AutoHotkey v$($runtime.MajorVersion): $($runtime.ExecutablePath)"

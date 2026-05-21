@@ -1,6 +1,6 @@
 {
   "name": "clipboard-image-paste",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Save a clipboard image as a local PNG and paste an @path reference into Codex or Claude Code CLI.",
   "author": {
     "name": "ImageIce",

@@ -7,6 +7,14 @@ if (A_Args.Length >= 1 && A_Args[1] = "--self-test") {
     ExitApp 0
 }
 
+mutexHandle := DllCall("CreateMutex", "Ptr", 0, "Int", true, "Str", "Local\ClipboardImagePasteHotkey", "Ptr")
+if (!mutexHandle) {
+    ExitApp 1
+}
+if (A_LastError = 183) {
+    ExitApp 0
+}
+
 ; Scope image paste handling to command-line windows. Convert image clipboard
 ; contents to a local path before pasting, which avoids slow native image paste.
 #HotIf IsTerminalWindow()

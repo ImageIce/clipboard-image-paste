@@ -1,6 +1,6 @@
 {
   "name": "clipboard-image-paste",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Save clipboard images as local PNG files and emit @path prompt references.",
   "author": {
     "name": "ImageIce"
