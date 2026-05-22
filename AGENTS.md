@@ -28,10 +28,10 @@ powershell.exe -NoProfile -Sta -ExecutionPolicy Bypass -File .\scripts\paste-cli
 Also attempts to paste the generated reference into the focused terminal.
 
 ```powershell
-.\scripts\package-plugin.ps1 -Version 1.0.1
+.\scripts\package-plugin.ps1 -Version 1.0.2
 ```
 
-Stages plugin files and writes `dist\clipboard-image-paste-1.0.1.zip`.
+Stages plugin files and writes `dist\clipboard-image-paste-1.0.2.zip`.
 
 ```powershell
 .\scripts\set-publisher.ps1 -GitHubOwner ImageIce

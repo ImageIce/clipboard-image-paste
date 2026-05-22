@@ -12,6 +12,14 @@ internal static class ClipboardImageSave
     {
         try
         {
+            foreach (string arg in args)
+            {
+                if (IsOption(arg, "hotkey-running", "HotkeyRunning"))
+                {
+                    return IsHotkeyRunning() ? 0 : 2;
+                }
+            }
+
             string outputDir = Path.Combine(Environment.CurrentDirectory, ".clipboard-images");
             string format = "at-path";
             bool noClipboard = false;
@@ -59,6 +67,31 @@ internal static class ClipboardImageSave
     {
         return string.Equals(value, "--" + longName, StringComparison.OrdinalIgnoreCase) ||
             string.Equals(value, "-" + powershellName, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsHotkeyRunning()
+    {
+        System.Threading.Mutex mutex = null;
+        try
+        {
+            mutex = System.Threading.Mutex.OpenExisting("Local\\ClipboardImagePasteHotkey");
+            return true;
+        }
+        catch (System.Threading.WaitHandleCannotBeOpenedException)
+        {
+            return false;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return true;
+        }
+        finally
+        {
+            if (mutex != null)
+            {
+                mutex.Dispose();
+            }
+        }
     }
 
     private static string SaveClipboardImage(string outputDir)

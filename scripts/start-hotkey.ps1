@@ -42,6 +42,25 @@ function Get-AutoHotkeyMajorVersion {
     return $null
 }
 
+function Test-HotkeyMutex {
+    $mutex = $null
+    try {
+        $mutex = [System.Threading.Mutex]::OpenExisting("Local\ClipboardImagePasteHotkey")
+        return $true
+    }
+    catch [System.Threading.WaitHandleCannotBeOpenedException] {
+        return $false
+    }
+    catch [System.UnauthorizedAccessException] {
+        return $true
+    }
+    finally {
+        if ($mutex) {
+            $mutex.Dispose()
+        }
+    }
+}
+
 function Get-AutoHotkeyRuntime {
     $candidates = @(
         @{ Path = "C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe"; MajorVersion = 2 },
@@ -87,6 +106,11 @@ function Get-AutoHotkeyRuntime {
     }
 
     throw "AutoHotkey v1.1 or v2 was not found. Install AutoHotkey, or update this script with the correct executable path."
+}
+
+if (Test-HotkeyMutex) {
+    Write-Output "Clipboard image paste hotkey already running."
+    return
 }
 
 $runtime = Get-AutoHotkeyRuntime

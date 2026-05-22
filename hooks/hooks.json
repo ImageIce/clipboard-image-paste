@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/scripts/start-hotkey.ps1\"",
+            "command": "cmd.exe /d /c \"\"${CLAUDE_PLUGIN_ROOT}/scripts/start-hotkey.cmd\"\"",
             "timeout": 30,
             "statusMessage": "Starting clipboard image paste hotkey"
           }

@@ -39,4 +39,7 @@ if ($LASTEXITCODE -ne 0) {
     throw "C# helper compilation failed with exit code $LASTEXITCODE."
 }
 
+$featurePath = Join-Path $outputDir "clipboard-image-save.features"
+Set-Content -LiteralPath $featurePath -Value "hotkey-running" -Encoding ASCII
+
 Write-Output $resolvedOutputPath

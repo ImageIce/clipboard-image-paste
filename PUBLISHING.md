@@ -57,7 +57,7 @@ codex plugin marketplace upgrade clipboard-image-paste
 For a GitHub Release attachment:
 
 ```powershell
-.\scripts\package-plugin.ps1 -Version 1.0.1
+.\scripts\package-plugin.ps1 -Version 1.0.2
 ```
 
-Upload the generated `dist\clipboard-image-paste-1.0.1.zip` as a release asset.
+Upload the generated `dist\clipboard-image-paste-1.0.2.zip` as a release asset.
