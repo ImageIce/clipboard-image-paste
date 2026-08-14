@@ -188,10 +188,3 @@ The hotkey only changes behavior in terminal windows such as PowerShell, cmd, pw
 `Claude Code does not show an image chip.`
 
 That is expected for the fast path. The plugin pastes a local image path, which Claude Code can read as image input. Use native `Alt+V` if you specifically want Claude Code's image-chip paste behavior.
-
-## Security Notes
-
-- The plugin reads only the current Windows clipboard image or the first image file from a clipboard file drop.
-- Saved images are local files. Delete `.clipboard-images\` or `%TEMP%\clipboard-image-paste\` if you copied sensitive screenshots.
-- The AutoHotkey helper is scoped to terminal processes.
-- This repository should not contain generated clipboard images, release ZIPs, personal screenshots, or local-only artifacts.
